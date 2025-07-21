@@ -1,0 +1,76 @@
+{
+  "validUser": {
+    "username": "Admin",
+    "password": "admin123"
+  },
+  "invalidUsername": {
+    "username": "wrong_user",
+    "password": "wrongpass"
+  },
+  "invalidPassword": {
+    "username": "admin",
+    "password": "wrongpass"
+  },
+  "customerUser": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "companyName": "PT ABC",
+      "country": "Indonesia",
+      "province": "Riau",
+      "address": "Jl. Mampang Selatan",
+      "city": "JKT",
+      "postCode": "15131",
+      "phone": "0866182919112",
+      "email": "john.doe@email.com"
+    },
+    {
+      "firstName": "Alex",
+      "lastName": "Mark",
+      "companyName": "PT DEF",
+      "country": "Malaysia",
+      "province": "Kedah",
+      "address": "Jl Selangor",
+      "city": "SBH",
+      "postCode": "15132",
+      "phone": "0866182919113",
+      "email": "alex.mark@email.com"
+    },
+    {
+      "firstName": "Lerman",
+      "lastName": "Nail",
+      "companyName": "PT GHI",
+      "country": "Singapore",
+      "province": "",
+      "address": "JL. Vt Chang Ok",
+      "city": "TKS",
+      "postCode": "15133",
+      "phone": "0866182919114",
+      "email": "lerman.nail@email.com"
+    },
+    {
+      "firstName": "Dan",
+      "lastName": "Bas",
+      "companyName": "PT JKL",
+      "country": "Brunei",
+      "province": "Serawak",
+      "address": "JL Bersama Kita",
+      "city": "JTG",
+      "postCode": "15134",
+      "phone": "0866182919115",
+      "email": "dan.bas@email.com"
+    },
+    {
+      "firstName": "Roger",
+      "lastName": "San",
+      "companyName": "PT OMN",
+      "country": "Thailand",
+      "province": "Bangkok",
+      "address": "JL Khap Nang",
+      "city": "PKG",
+      "postCode": "15135",
+      "phone": "0866182919116",
+      "email": "roger.san@email.com"
+    }
+  ]
+}
