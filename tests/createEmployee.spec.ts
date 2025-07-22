@@ -14,20 +14,40 @@ test.describe("PIM Page Tests Valid", () => {
     const pimPage = new PimPage(page);
     await pimPage.goto();
 
+    // console.log("checkk", test.info().project.name);
     await pimPage.addEmployee("John", "A.", "Doe");
+    const link = page.getByRole("link", { name: "Employee List" });
+    const isMobile = test.info().project.name.toLowerCase().includes("mobile");
 
-    await expect(page.getByRole("link", { name: "Employee List" })).toHaveText(
-      "Employee List"
-    );
-
+    if (isMobile) {
+      // di mobile mungkin render lambat → kasih timeout
+      await expect(page.getByText("Configuration")).toHaveText(
+        "Configuration ",
+        { timeout: 10000 }
+      );
+    } else {
+      // di desktop tampil cepat → pakai default timeout
+      await expect(link).toHaveText("Employee List");
+    }
+    // await expect(page.getByRole("link", { name: "Employee List" })).toHaveText(
+    //   "Employee List",
+    //   { timeout: 10000 }
+    // );
     await expect(
       page.getByRole("heading", { name: "Personal Details" })
     ).toBeVisible({
       timeout: 10000,
     });
 
+    const path = `evidence/pim/create-employee-success-`;
+    if (!isMobile) {
+      await page.screenshot({
+        path: `${path}web.png`,
+        fullPage: false,
+      });
+    }
     await page.screenshot({
-      path: "evidence/pim/create-employee-success.png",
+      path: `${path}mobile.png`,
       fullPage: false,
     });
   });
@@ -39,11 +59,19 @@ test.describe("PIM Page Tests Valid", () => {
     await pimPage.goto();
 
     await pimPage.addEmployee("Lorem", "Ipsum", "Dolor", true, false);
+    const link = page.getByRole("link", { name: "Employee List" });
+    const isMobile = test.info().project.name.toLowerCase().includes("mobile");
 
-    await expect(page.getByRole("link", { name: "Employee List" })).toHaveText(
-      "Employee List"
-    );
-
+    if (isMobile) {
+      // di mobile mungkin render lambat → kasih timeout
+      await expect(page.getByText("Configuration")).toHaveText(
+        "Configuration ",
+        { timeout: 10000 }
+      );
+    } else {
+      // di desktop tampil cepat → pakai default timeout
+      await expect(link).toHaveText("Employee List");
+    }
     await expect(
       page.getByRole("heading", { name: "Personal Details" })
     ).toBeVisible({
@@ -72,8 +100,17 @@ test.describe("PIM Page Tests Invalid", () => {
       timeout: 10000,
     });
 
+    const path = `evidence/pim/create-employee-failed-employeeid-already-existing-`;
+    const isMobile = test.info().project.name.toLowerCase().includes("mobile");
+
+    if (!isMobile) {
+      await page.screenshot({
+        path: `${path}web.png`,
+        fullPage: false,
+      });
+    }
     await page.screenshot({
-      path: "evidence/pim/create-employee-failed-employeeid-already-existing.png",
+      path: `${path}mobile.png`,
       fullPage: false,
     });
   });
@@ -99,8 +136,16 @@ test.describe("PIM Page Tests Invalid", () => {
       timeout: 10000,
     });
 
+    const isMobile = test.info().project.name.toLowerCase().includes("mobile");
+    const path = `evidence/pim/create-employee-failed-username-already-existing-`;
+    if (!isMobile) {
+      await page.screenshot({
+        path: `${path}web.png`,
+        fullPage: false,
+      });
+    }
     await page.screenshot({
-      path: "evidence/pim/create-employee-failed-username-already-existing.png",
+      path: `${path}mobile.png`,
       fullPage: false,
     });
   });

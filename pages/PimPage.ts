@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import test, { expect, Page } from "@playwright/test";
 
 export class PimPage {
   constructor(private page: Page) {}
@@ -8,8 +8,10 @@ export class PimPage {
   hour = this.now.getHours().toString().padStart(2, "0");
   minute = this.now.getMinutes().toString().padStart(2, "0");
   second = this.now.getSeconds().toString().padStart(2, "0");
-  uniqueUsername = `user${this.day}${this.hour}${this.minute}`;
-  uniqueEmployeeId = `${this.day}${this.hour}${this.minute}${this.second}`;
+  miliSecond = this.now.getMilliseconds().toString().padStart(1, "0");
+  uniqueUsername = `uers${this.day}${this.hour}${this.minute}`;
+  uniqueEmployeeId = `${this.day}${this.hour}${this.minute}${this.miliSecond}`;
+  // uniqueEmployeeId = `${this.day}${this.hour}${this.minute}${this.second}${this.miliSecond}`;
   async goto() {
     await this.page.goto("/web/index.php/pim/viewEmployeeList");
   }
@@ -44,7 +46,7 @@ export class PimPage {
     await this.page.fill('input[name="middleName"]', middleName);
     await this.page.fill('input[name="lastName"]', lastName);
     if (isInvalidData) {
-      await this.page.getByRole("textbox").nth(4).fill("09557");
+      await this.page.getByRole("textbox").nth(4).fill("01715");
       await expect(
         this.page.getByText("Employee Id already exists")
       ).toBeVisible({
@@ -104,10 +106,21 @@ export class PimPage {
     await this.page.locator('input[type="password"]').nth(1).fill(newPassword);
 
     if (!isInvalidData) {
-      await this.page.screenshot({
-        path: "evidence/pim/create-employee-with-account.png",
-        fullPage: false,
-      });
+      const path = `evidence/pim/create-employee-with-account-`;
+      const isMobile = test
+        .info()
+        .project.name.toLowerCase()
+        .includes("mobile");
+      if (!isMobile) {
+        await this.page.screenshot({
+          path: `${path}web.png`,
+          fullPage: false,
+        });
+        await this.page.screenshot({
+          path: `${path}mobile.png`,
+          fullPage: false,
+        });
+      }
     }
   }
 }
